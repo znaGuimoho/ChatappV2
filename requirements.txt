@@ -1,0 +1,8 @@
+flask
+flask-socketio
+eventlet
+mysql-connector-python
+pyzmq
+eventlet
+gunicorn
+Flask-Session

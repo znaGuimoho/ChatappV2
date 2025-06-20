@@ -1,0 +1,414 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Body Styling */
+body {
+    background-color: #f4f7fa;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Content Container */
+.content_container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Content */
+.content {
+    width: 100%;
+    max-width: 600px;
+}
+
+/* User Header (Icon, Name, and Quit Button) */
+.user-header {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.user-header i {
+    font-size: 2rem;
+    color: #007bff;
+}
+
+.user-header .user-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333 !important;
+    display: inline-block;
+}
+
+.user-header form button[name="quit"] {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.user-header form button[name="quit"]:hover {
+    background-color: #c82333;
+}
+
+.user-header form button[name="quit"]:active {
+    background-color: #bd2130;
+}
+
+/* Chat Form (temp.html) */
+.chat-form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.chat-form h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.chat-form .join {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.chat-form input[type="text"] {
+    flex: 1;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.chat-form input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.chat-form .join button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-form .join button:hover {
+    background-color: #0056b3;
+}
+
+.chat-form button[name="create"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-form button[name="create"]:hover {
+    background-color: #218838;
+}
+
+/* Error Messages */
+.error-list {
+    list-style: none;
+    margin-top: 15px;
+    color: #dc3545;
+}
+
+.error-list li {
+    font-size: 0.9rem;
+}
+
+/* Chat Room (room.html) */
+.message-box {
+    background-color: #fff;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 60px;
+}
+
+.message-box h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.messages {
+    height: 300px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.messages .text {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #e9ecef;
+    display: flex;
+    flex-direction: column;
+}
+
+.messages .text span:first-child {
+    font-size: 1rem;
+    color: #333;
+}
+
+.messages .text .muted {
+    font-size: 0.75rem;
+    color: #888;
+    font-style: italic;
+    opacity: 0.8;
+    margin-top: 2px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#message {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    outline: none;
+}
+
+#message:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+#send-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#send-btn:hover {
+    background-color: #0056b3;
+}
+
+#send-btn:active {
+    background-color: #004085;
+}
+
+.file-input-container {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.file-input-container label {
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+#file-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#file {
+    padding: 8px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+#file:hover,
+#file:focus {
+    border-color: #4CAF50;
+    background-color: #e7f7e5;
+}
+
+#upload-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#upload-btn:hover {
+    background-color: #45a049;
+}
+
+#upload-btn:active {
+    background-color: #3d8b40;
+}
+
+.upload-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+    color: #333;
+    margin-top: 5px;
+}
+
+.upload-status i {
+    font-size: 1rem;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+footer .container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+footer p {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+footer .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+footer .social-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
+}
+
+footer .social-links a:hover {
+    color: #007bff;
+}
+
+footer .social-links i {
+    font-size: 1.2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .content_container {
+        padding: 10px;
+    }
+
+    .chat-form,
+    .message-box {
+        padding: 20px;
+        max-width: 90%;
+        margin-top: 50px;
+    }
+
+    .user-header {
+        top: 10px;
+        left: 10px;
+    }
+
+    .user-header i {
+        font-size: 1.5rem;
+    }
+
+    .user-header .user-name {
+        font-size: 1rem;
+    }
+
+    .chat-form .join {
+        flex-direction: column;
+    }
+
+    .chat-form .join button {
+        width: 100%;
+    }
+
+    .messages {
+        height: 250px;
+    }
+
+    #file-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #file,
+    #upload-btn {
+        width: 100%;
+    }
+
+    footer .container {
+        padding: 0 10px;
+    }
+
+    footer .social-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="user-header" aria-label="Current user: {{ name }}">
+    <i class="fas fa-user-circle"></i>
+    <span class="user-name">{{ name }}</span>
+    <form action="{{ url_for('quit_room') }}" method="POST">
+        <button type="submit" name="quit" value="1">Quit Room</button>
+    </form>
+</div>
+<div class="message-box">
+    <h2>Chat Room: {{ code }}</h2>
+    <div class="messages" id="messages">
+        {% for msg in messages %}
+        <div class="text">
+            <span><strong>{{ msg.name }}</strong>: {{ msg.message | safe }}</span>
+            <span class="muted">{{ msg.timestamp }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="inputs">
+        <input
+            type="text"
+            placeholder="Message"
+            name="message"
+            id="message"
+        />
+        <button type="button" name="send" id="send-btn" onClick="sendMessage()">Send</button>
+        <label>Send a file</label>
+        <div class="file-input-container">
+            <form id="file-form" enctype="multipart/form-data" method="POST">
+                <input type="file" name="file" id="file">
+                <button type="submit" id="upload-btn">Upload File</button>
+                <div class="upload-status" id="upload-status" style="display: none;" aria-live="polite">
+                    <i class="fas fa-spinner fa-spin"></i> Uploading...
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    window.onload = function () {
+        const messages = document.getElementById("messages");
+        messages.scrollTo({
+            top: messages.scrollHeight,
+            behavior: 'smooth'
+        });
+    };
+
+    var socketio = io();
+
+    // Send message when Enter key is pressed
+    document.getElementById("message").addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            sendMessage();
+        }
+    });
+
+    // Function to create and append a new message in the chat
+    const createMessage = (name, msg, timestamp) => {
+        const content = `
+            <div class="text">
+                <span><strong>${name}</strong>: ${msg}</span>
+                <span class="muted">${timestamp}</span>
+            </div>
+        `;
+        messages.innerHTML += content;
+        messages.scrollTop = messages.scrollHeight;
+    };
+
+    // Listen for messages from the server
+    socketio.on("message", (data) => {
+        createMessage(data.name, data.message, data.timestamp);
+    });
+
+    // Send message to the server when Send button is clicked
+    const sendMessage = () => {
+        const messageInput = document.getElementById("message");
+        const message = messageInput.value.trim();
+
+        if (message === "") return;
+
+        socketio.emit("message", { message: message, room: '{{ code }}' });
+        messageInput.value = "";
+    };
+
+    // Handle file uploads
+    document.getElementById("file-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const uploadStatus = document.getElementById("upload-status");
+        const uploadBtn = document.getElementById("upload-btn");
+        const fileInput = document.getElementById("file");
+
+        // Show loading spinner and disable button
+        uploadStatus.style.display = "block";
+        uploadBtn.disabled = true;
+
+        fetch("/upload", {
+            method: "POST",
+            body: formData
+        }).then(response => {
+            if (!response.ok) throw new Error("Upload failed");
+            // Hide spinner, enable button, and clear input
+            uploadStatus.style.display = "none";
+            uploadBtn.disabled = false;
+            fileInput.value = "";
+        }).catch(error => {
+            // Show error and reset UI
+            uploadStatus.textContent = "Upload failed. Try again.";
+            uploadStatus.style.color = "#dc3545";
+            setTimeout(() => {
+                uploadStatus.style.display = "none";
+                uploadStatus.textContent = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+                uploadStatus.style.color = "#333";
+                uploadBtn.disabled = false;
+                fileInput.value = "";
+            }, 3000);
+            console.error("Error uploading file:", error);
+        });
+    });
+</script>
+{% endblock %}

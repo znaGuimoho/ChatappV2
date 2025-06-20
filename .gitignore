@@ -1,0 +1,8 @@
+/flask_session
+/.vscode
+/__pycache__
+/public_files
+/.env
+/venv
+docker-compose.yml
+init.sql

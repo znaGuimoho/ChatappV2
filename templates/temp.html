@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="user-header">
+    <i class="fas fa-user-circle"></i>
+    <span class="user-name">{{ name }}</span>
+</div>
+<form method="post" class="chat-form">
+    <h3>Enter the Chat Room</h3>
+    <div class="join">
+        <input type="text" placeholder="Room code" name="code" value="{{ code | default('') }}">
+        <button type="submit" name="join" value="1">Join Room</button>
+    </div>
+    <button type="submit" name="create" value="1">Create Room</button>
+
+    {% if error %}
+    <ul class="error-list">
+        <li>{{ error }}</li>
+    </ul>
+    {% endif %}
+</form>
+{% endblock %}

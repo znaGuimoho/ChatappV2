@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+<form method="post" class="button">
+    <h3>enter the chat room</h3>
+    <div>
+        <label>Name:</label>
+        <input type="text" placeholder="Pick a name" name="name" value="{{name}}">
+        <input type="email" placeholder="Enter your Gmail" name="gmail" value="{{gmail}}">
+        <input type="password" placeholder="Enter a password" name="passw" value="{{passw}}">
+        <input type="password" placeholder="Enter your password again" name="pass1" value="{{pass1}}">
+    </div>
+    <div class="join">
+        <button type="submit" name="join" value="1">join</button>
+    </div>
+    {% if error %}
+    <ul>
+        <li>{{error}}</li>
+    </ul>
+    {% endif %}
+</form>
+
+{% endblock %}
